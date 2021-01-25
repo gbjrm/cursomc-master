@@ -33,6 +33,8 @@ public class Cliente implements Serializable {
 	private String cpfOuCnpj;
 	private Integer tipoCliente;
 	
+	@JsonIgnore
+	private String senha;
 	
 	//Se um cliente for apagado, os endereços dele também serão. "cascade"
 	@OneToMany(mappedBy = "cliente", cascade=CascadeType.ALL)
@@ -50,7 +52,7 @@ public class Cliente implements Serializable {
 		
 	}
 
-	public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipoCliente) {
+	public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipoCliente, String senha) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -58,6 +60,7 @@ public class Cliente implements Serializable {
 		this.cpfOuCnpj = cpfOuCnpj;
 		//Se o tipoCLiente for null, logo será atribuido null. Caso ao contrario é atribuido o cod
 		this.tipoCliente = (tipoCliente == null)? null: tipoCliente.getCod();
+		this.senha=senha;
 	}
 
 	public Integer getId() {
@@ -100,6 +103,15 @@ public class Cliente implements Serializable {
 		this.tipoCliente = tipoCliente.getCod();
 	}
 
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	
 	public List<Endereco> getEnderecos() {
 		return enderecos;
 	}
@@ -149,6 +161,7 @@ public class Cliente implements Serializable {
 			return false;
 		return true;
 	}
+
 
 
 	
